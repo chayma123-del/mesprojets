@@ -1,45 +1,83 @@
 import React, { useState } from "react";
-import "./DishForm.css";
 
 const DishForm = ({ onAddDish }) => {
-  const [isAdding, setIsAdding] = useState(false);
-  const [newDish, setNewDish] = useState({
-    name: "",
-    description: "",
-    price: "",
-    image: "",
-  });
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [image, setImage] = useState(null); // Pour stocker le fichier image
+  const [imagePreview, setImagePreview] = useState(""); // Pour afficher l'aperçu de l'image
 
-  const handleChange = (e) => {
-    setNewDish({ ...newDish, [e.target.name]: e.target.value });
+  const handleImageChange = (e) => {
+    const file = e.target.files[0]; // Récupérer le fichier sélectionné
+    if (file) {
+      setImage(file); // Stocker le fichier dans l'état
+      setImagePreview(URL.createObjectURL(file)); // Créer un aperçu de l'image
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!newDish.name || !newDish.description || !newDish.price || !newDish.image) {
-      alert("Tous les champs sont obligatoires !");
-      return;
-    }
-    onAddDish({ ...newDish, id: Date.now() });
-    setNewDish({ name: "", description: "", price: "", image: "" });
-    setIsAdding(false);
+
+    // Créer un objet FormData pour envoyer le fichier
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("price", price);
+    formData.append("image", image); // Ajouter le fichier image
+
+    onAddDish(formData); // Appeler la fonction onAddDish avec FormData
+    setName("");
+    setDescription("");
+    setPrice("");
+    setImage(null); // Réinitialiser le fichier image
+    setImagePreview(""); // Réinitialiser l'aperçu de l'image
   };
 
   return (
-    <div className="dish-form">
-      {isAdding ? (
-        <form onSubmit={handleSubmit}>
-          <input type="text" name="name" placeholder="Nom du plat" value={newDish.name} onChange={handleChange} required />
-          <textarea name="description" placeholder="Description" value={newDish.description} onChange={handleChange} required />
-          <input type="text" name="price" placeholder="Prix" value={newDish.price} onChange={handleChange} required />
-          <input type="text" name="image" placeholder="URL de l'image" value={newDish.image} onChange={handleChange} required />
-          <button type="submit">Ajouter</button>
-          <button type="button" onClick={() => setIsAdding(false)}>Annuler</button>
-        </form>
-      ) : (
-        <button onClick={() => setIsAdding(true)}>Ajouter un plat</button>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Nom du plat"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+      />
+      <input
+        type="text"
+        placeholder="Description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        required
+      />
+      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+        <input
+          type="text"
+          placeholder="Prix"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          style={{ flex: 1 }}
+          required
+        />
+        
+      </div>
+      <input
+        type="file"
+        accept="image/*" // Accepter uniquement les fichiers image
+        onChange={handleImageChange} // Gérer la sélection de l'image
+        required
+      />
+      {imagePreview && (
+        <div>
+          <h4>Aperçu de l'image :</h4>
+          <img
+            src={imagePreview}
+            alt="Aperçu de l'image"
+            style={{ width: "100px", height: "100px", objectFit: "cover" }}
+          />
+        </div>
       )}
-    </div>
+      <button type="submit">Ajouter</button>
+    </form>
   );
 };
 
