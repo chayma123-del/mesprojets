@@ -11,3 +11,11 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+
+//  <div className="menu">
+//{currentDishes.map((dish) => (
+  //<DishCard key={dish.id} dish={dish} onDelete={handleDeleteDish} /> 
+//))}
+//</div>

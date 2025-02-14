@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 import DishCard from "./components/DishCard";
 import Navbar from "./components/Navbar";
-import DishForm from "./components/DishForm";
+
+//import ImageGallery from "./components/ImageGallery";
+import UploadImage from "./components/UploadImage";
 import Pagination from "./components/Pagination";
-import { fetchDishes, addDish, deleteDish } from "./services/api"; // Importer les fonctions appropriées
+import { fetchDishes,  deleteDish } from "./services/api"; // Importez les fonctions d'API
 import "./App.css";
 
 const App = () => {
   const [dishes, setDishes] = useState([]); // Pour stocker les plats récupérés
-  const [imageData, setImageData] = useState([]); // Pour stocker les données des images
-  const [base64Images, setBase64Images] = useState([]); // Pour stocker les images converties en base64
   const [currentPage, setCurrentPage] = useState(1);
   const [error, setError] = useState(""); // Pour gérer les erreurs
-  const dishesPerPage = 10;
+  const dishesPerPage = 6;
 
-  // Récupérer tous les plats au chargement du composant
+  // Récupérer les plats au chargement du composant
   useEffect(() => {
     const getDishes = async () => {
       try {
@@ -29,40 +29,7 @@ const App = () => {
     getDishes();
   }, []);
 
-  // Récupérer les images au chargement du composant
-  useEffect(() => {
-    fetch('http://localhost:8082/api/uploads/images')
-      .then((response) => response.json())
-      .then((data) => {
-        setImageData(data);
-        convertByteArraysToBase64(data);
-      })
-      .catch((error) => console.error('Error fetching the images:', error));
-  }, []);
-
-  // Convertir les images de byte arrays en base64
-  const convertByteArraysToBase64 = (images) => {
-    const base64Array = images.map((image) => {
-      const binaryString = String.fromCharCode.apply(null, new Uint8Array(image.imageData));
-      return `data:image/jpeg;base64,${btoa(binaryString)}`;
-    });
-    setBase64Images(base64Array);
-  }
-  if (!imageData.length || !base64Images.length) {
-    return <div>Loading...</div>;
-  }
-
-  // Ajouter un nouveau plat
-  const handleAddDish = async (newDish) => {
-    try {
-      const addedDish = await addDish(newDish); // Appel POST pour ajouter un plat
-      setDishes([...dishes, addedDish]); // Mettre à jour la liste des plats
-      setError("");
-    } catch (err) {
-      setError("Erreur lors de l'ajout du plat.");
-      console.error(err);
-    }
-  };
+    
 
   // Supprimer un plat
   const handleDeleteDish = async (id) => {
@@ -95,19 +62,17 @@ const App = () => {
     }
   };
 
-  if (!imageData.length || !base64Images.length) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div className="app">
       <Navbar />
-      <DishForm onAddDish={handleAddDish} /> {/* Passer la fonction handleAddDish */}
+      <UploadImage />
+   
+      
+      
 
-      {/* Afficher les plats */}
       <div className="menu">
         {currentDishes.map((dish) => (
-          <DishCard key={dish.id} dish={dish} onDelete={handleDeleteDish} />
+          <DishCard key={dish.id} dish={dish} onDelete={handleDeleteDish} /> 
         ))}
       </div>
 
@@ -117,21 +82,6 @@ const App = () => {
         currentPage={currentPage}
         totalPages={Math.ceil(dishes.length / dishesPerPage)}
       />
-
-      {/* Afficher les images */}
-      <h1>Image Gallery</h1>
-      {imageData.map((image, index) => (
-        <div key={index}>
-          <p><strong>Name:</strong> {image.name}</p>
-          <p><strong>Description:</strong> {image.description}</p>
-          {/* Utiliser l'image correspondante en base64 */}
-          {base64Images[index] ? (
-            <img src={base64Images[index]} alt={image.name} />
-          ) : (
-            <p>Image not available</p>
-          )}
-        </div>
-      ))}
 
       {/* Affichage des erreurs */}
       {error && (
@@ -143,10 +93,7 @@ const App = () => {
   );
 };
 
-export default App;
-
-
-
+export default App; 
 
 
 
@@ -280,7 +227,7 @@ export default App;
 // };
 
 
-// const App = () => {
+
 //   const [imageData, setImageData] = useState([]);
 //   const [base64Images, setBase64Images] = useState([]);
  
@@ -326,3 +273,49 @@ export default App;
 // };
  
 // export default App;
+
+
+
+
+// Récupérer les images au chargement du composant
+//useEffect(() => {
+  //fetch('http://localhost:8082/api/uploads/images')
+   // .then((response) => response.json())
+    //.then((data) => {
+    //  setImageData(data);
+    //  convertByteArraysToBase64(data);
+    //})
+    //.catch((error) => console.error('Error fetching the images:', error));
+//}, []);
+
+// Convertir les images de byte arrays en base64
+//const convertByteArraysToBase64 = (images) => {
+  //const base64Array = images.map((image) => {
+    //const binaryString = String.fromCharCode.apply(null, new Uint8Array(image.imageData));
+    //return `data:image/jpeg;base64,${btoa(binaryString)}`;
+  //});
+  //setBase64Images(base64Array);
+//}
+//if (!imageData.length || !base64Images.length) {
+  //return <div>Loading...</div>;
+//}
+
+
+
+
+
+
+//{/* Afficher les images */}
+//<h1>Image Gallery</h1>
+//{imageData.map((image, index) => (
+  //<div key={index}>
+  //  <p><strong>Name:</strong> {image.name}</p>
+  //  <p><strong>Description:</strong> {image.description}</p>
+  //  {/* Utiliser l'image correspondante en base64 */}
+  //  {base64Images[index] ? (
+  //    <img src={base64Images[index]} alt={image.name} />
+  //  ) : (
+  //    <p>Image not available</p>
+  //  )}
+  //</div>
+//))}

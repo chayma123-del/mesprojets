@@ -1,4 +1,3 @@
-/* Réinitialisation des styles */
 * {
   margin: 0;
   padding: 0;
@@ -7,7 +6,7 @@
 }
 
 body {
-  background-color: #afaff4;
+  background-color: #000000;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,97 +40,197 @@ body {
   flex-direction: column;
   align-items: center;
 }
+/* Conteneur du formulaire */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f8f9fa;
+  padding: 20px;
+}
 
-/* Formulaire d'ajout */
+/* Formulaire */
 form {
   background: white;
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  width: 100%; /* Augmenter la largeur du formulaire */
-  max-width: 600px; /* Limiter la largeur maximale */
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 30px;
-  text-align: center;
+  gap: 15px;
+  text-align: left;
 }
 
-input, button {
-  padding: 15px;
+/* Labels */
+label {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+/* Champs de saisie */
+input, textarea, select {
+  width: 100%;
+  padding: 12px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 18px;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border 0.3s ease-in-out;
 }
 
+input:focus, textarea:focus, select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Bouton de soumission */
 button {
-  background-color: #000000;
+  background: #007bff;
   color: white;
+  padding: 12px;
   border: none;
+  border-radius: 8px;
+  font-size: 16px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: background 0.3s ease-in-out;
 }
 
 button:hover {
-  background-color: #010101;
+  background: #0056b3;
 }
 
-/* Conteneur du menu */
-.menu {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  width: 80%;
-  margin-top: 20px;
+/* Ajout d'un effet sur les champs obligatoires */
+input:required, textarea:required {
+  border-left: 4px solid red;
 }
 
+/* Message d'erreur */
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: -10px;
+}
 
-.dish-card img {
+/* Responsive */
+@media (max-width: 600px) {
+  form {
+    padding: 20px;
+  }
+}
+/* Style des inputs et buttons */
+input, textarea, button {
   width: 100%;
-  height: 300px;
-  object-fit: cover;
-  border-radius: 10px;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease-in-out;
 }
 
-/* Pagination */
+/* Focus sur input & textarea */
+input:focus, textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Bouton stylé */
+button {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  display: inline-block;
+  text-transform: uppercase;
+}
+
+/* Effet au survol du bouton */
+button:hover {
+  background: linear-gradient(135deg, #0056b3, #003d80);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Effet bouton en mode actif (cliqué) */
+button:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+/* Conteneur de la pagination */
 .pagination-container {
   margin-top: 30px;
   display: flex;
   justify-content: center;
-  gap: 15px;
-  position: relative;
-  bottom: 20px;
+  gap: 10px;
+  align-items: center;
 }
 
+/* Boutons de pagination */
 .pagination-btn {
-  padding: 10px 20px;
-  font-size: 18px;
-  border-radius: 5px;
+  padding: 12px 18px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 3px 10px rgba(0, 123, 255, 0.2);
 }
 
-/* Footer */
-.footer {
-  margin-top: 40px;
-  text-align: center;
-  width: 100%;
-  padding: 10px;
-  background-color: #080808;
-  color: white;
-  font-size: 14px;
+/* Effet au survol */
+.pagination-btn:hover {
+  background: linear-gradient(135deg, #0056b3, #003d80);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
 }
+
+/* Bouton actif */
+.pagination-btn.active {
+  background: #ff9800;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  transform: scale(1.1);
+}
+
+/* Désactiver le bouton */
+.pagination-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+
+
+
+/* Style des cartes de plats */
 .dish-card {
-    width: 280px; /* Largeur fixe */
-    height: 450px; /* Hauteur plus grande */
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    text-align: center;
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
+  width: 300px; /* Largeur fixe pour les cartes */
+  height: 380px; /* Hauteur modifiée */
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease-in-out;
+  justify-content: center; /* Centrer les cartes */
+    gap: 5px; /* Espacement entre les cartes */
+    padding: 30px;
+  }
+  
 
 
 /* Effet au survol de la carte */
@@ -139,184 +238,72 @@ button:hover {
   transform: translateY(-5px); /* Déplacer légèrement vers le haut */
 }
 
-/* Style pour l'image du plat */
-.dish-image {
-  width: 100%; /* Largeur totale */
-  height: 200px; /* Hauteur fixe */
-  object-fit: cover; /* Ajuster l'image sans déformation */
-}
 
-/* Style pour les informations du plat */
-.dish-info {
-  padding: 16px; /* Espacement intérieur */
-  text-align: left; /* Aligner le texte à gauche */
-}
-
-/* Style pour le nom du plat */
-.dish-name {
-  font-size: 18px; /* Taille de police */
-  font-weight: bold; /* Texte en gras */
-  margin-bottom: 8px; /* Espacement en bas */
-  color: #333; /* Couleur du texte */
-}
-
-/* Style pour la description du plat */
-.dish-description {
-  font-size: 14px; /* Taille de police */
-  color: #666; /* Couleur du texte */
-  margin-bottom: 8px; /* Espacement en bas */
-}
-
-/* Style pour le prix du plat */
-.dish-price {
-  font-size: 16px; /* Taille de police */
-  font-weight: bold; /* Texte en gras */
-  color: #007bff; /* Couleur bleue */
-}
-
-/* Style pour le bouton de suppression */
-.delete-btn {
-  background-color: #dc3545; /* Couleur rouge */
-  color: white; /* Texte blanc */
-  border: none; /* Supprimer la bordure */
-  padding: 10px; /* Espacement intérieur */
-  cursor: pointer; /* Curseur pointer */
-  font-size: 14px; /* Taille de police */
-  transition: background-color 0.3s ease; /* Transition fluide */
-  margin-top: auto; /* Aligner en bas de la carte */
-}
-
-/* Effet au survol du bouton de suppression */
-.delete-btn:hover {
-  background-color: #c82333; /* Couleur rouge plus foncée */
-}
-
-
-.dish-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.edit-btn {
-  background-color: #28a745; /* Couleur verte */
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
-}
-
-.edit-btn:hover {
-  background-color: #218838; /* Couleur verte plus foncée */
-}
-
-.delete-btn {
-  background-color: #dc3545; /* Couleur rouge */
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
-}
-
-.delete-btn:hover {
-  background-color: #c82333; /* Couleur rouge plus foncée */
-}
-
-
-
-
-
-
-
-/* Style pour le bouton de suppression */
-.delete-btn {
-  background-color: #dc3545; /* Couleur rouge */
-  color: white; /* Texte blanc */
-  border: none; /* Supprimer la bordure */
-  padding: 10px; /* Espacement intérieur */
-  cursor: pointer; /* Curseur pointer */
-  font-size: 14px; /* Taille de police */
-  transition: background-color 0.3s ease; /* Transition fluide */
-  margin-top: auto; /* Aligner en bas de la carte */
-}
-
-/* Effet au survol du bouton de suppression */
-.delete-btn:hover {
-  background-color: #c82333; /* Couleur rouge plus foncée */
-}
-
-/* Style pour l'image du plat */
-.dish-image {
-  width: 100%; /* Largeur totale */
-  height: 200px; /* Hauteur fixe */
-  object-fit: cover; /* Ajuster l'image sans déformation */
-}
-
-/* Style pour les informations du plat */
-.dish-info {
-  padding: 16px; /* Espacement intérieur */
-  text-align: left; /* Aligner le texte à gauche */
-}
-
-/* Style pour le nom du plat */
-.dish-name {
-  font-size: 18px; /* Taille de police */
-  font-weight: bold; /* Texte en gras */
-  margin-bottom: 8px; /* Espacement en bas */
-  color: #333; /* Couleur du texte */
-}
-
-/* Style pour la description du plat */
-.dish-description {
-  font-size: 14px; /* Taille de police */
-  color: #666; /* Couleur du texte */
-  margin-bottom: 8px; /* Espacement en bas */
-}
-
-/* Style pour le prix du plat */
-.dish-price {
-  font-size: 16px; /* Taille de police */
-  font-weight: bold; /* Texte en gras */
-  color: #007bff; /* Couleur bleue */
-}
-
-/* Style pour le bouton de suppression */
-.delete-btn {
-  background-color: #dc3545; /* Couleur rouge */
-  color: white; /* Texte blanc */
-  border: none; /* Supprimer la bordure */
-  padding: 10px; /* Espacement intérieur */
-  cursor: pointer; /* Curseur pointer */
-  font-size: 14px; /* Taille de police */
-  transition: background-color 0.3s ease; /* Transition fluide */
-  margin-top: auto; /* Aligner en bas de la carte */
-}
-
-/* Effet au survol du bouton de suppression */
-.delete-btn:hover {
-  background-color: #c82333; /* Couleur rouge plus foncée */
-}
-.dish-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  width: 250px;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
+/* Image du plat */
 .dish-image {
   width: 100%;
-  height: 150px;
+  height: 200px;
   object-fit: cover;
-  border-radius: 10px;
 }
+
+/* Informations du plat */
+.dish-info {
+  padding: 16px;
+  text-align: left;
+}
+
+/* Nom du plat */
+.dish-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+/* Description du plat */
+.dish-description {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+/* Prix du plat */
+.dish-price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #007bff;
+}
+
+/* Bouton Supprimer */
+.delete-button {
+  padding: 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.delete-button:hover {
+  background-color: #ff4444;
+}
+
+
+/* Bouton de suppression */
+.dish-delete-btn {
+background-color: red;
+color: white;
+border: none;
+padding: 8px;
+border-radius: 6px;
+cursor: pointer;
+transition: 0.3s;
+margin-bottom: 10px;
+}
+
+.dish-delete-btn:hover {
+background-color: darkred;
+}
+
 
